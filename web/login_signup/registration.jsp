@@ -19,8 +19,8 @@
     
 User user = new User(firstname,lastname,email,password,role);
 if(user.register(DbConnector.getConnection())){
-    response.sendRedirect("signup.jsp?s=1");
+    response.sendRedirect("login_signup/signup.jsp?s=1");
 }else{
-     response.sendRedirect("signup.jsp?s=0");
+     response.sendRedirect("login_signup/signup.jsp?s=0");
 }
 %>

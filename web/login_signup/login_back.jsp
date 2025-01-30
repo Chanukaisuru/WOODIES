@@ -19,9 +19,9 @@ if("admin@gmail.com".equals(email) && "admin".equals(password)){
 }else{
     if(user.authenticate(DbConnector.getConnection())){
         session.setAttribute("user_id", user.getId());
-        response.sendRedirect("home.jsp");       //change
+        response.sendRedirect("../home.jsp");       //change
     }else{
-        response.sendRedirect("login.jsp?s=0");       //change
+        response.sendRedirect("login_signup/login.jsp?s=0");       //change
     }
 
 }

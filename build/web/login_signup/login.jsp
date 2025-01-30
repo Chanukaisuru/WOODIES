@@ -20,7 +20,7 @@
             <div class="grid grid-cols-2 h-full">
                 <!-- Left side - Image and Sign Up Button -->
                 <div class="bg-yellow-50 flex flex-col items-center justify-center p-8 relative">
-                    <img src="resources/images/login_signup_image/login.png" alt="Sign In Image" class="rounded-lg mb-4 max-w-xs h-auto"/>
+                    <img src="../resources/images/login_signup_image/login.png" alt="Sign In Image" class="rounded-lg mb-4 max-w-xs h-auto"/>
                     <div class="text-center">
                         <h2 class="text-xl font-semibold mb-4">Don't have an account?</h2>
                         <p class="text-gray-600 mb-6">Sign up to get started with us</p>

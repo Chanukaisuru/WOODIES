@@ -52,7 +52,7 @@
                 
                  <!-- Right side - Image and Sign In Button -->
                 <div class="bg-yellow-50 flex flex-col items-center justify-center p-8 relative">
-                    <img src="resources/images/login_signup_image/signup.png" alt="Sign Up Image" class="rounded-lg mb-4 max-w-xs h-auto"/>
+                    <img src="../resources/images/login_signup_image/signup.png" alt="Sign Up Image" class="rounded-lg mb-4 max-w-xs h-auto"/>
                     <div class="text-center">
                         <h2 class="text-xl font-semibold mb-2">Already have an account?</h2>
                         <p class="text-gray-600 mb-6">Sign in to access your account</p>
