@@ -8,6 +8,18 @@
 <%@page import="app.classes.DbConnector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!User user = new User();%>
+
+
+<%
+    if (session.getAttribute("user_id") != null) {
+        int user_id = (Integer) session.getAttribute("user_id");
+        user.setId(user_id);
+        user = user.getUserById(DbConnector.getConnection());
+    }else{
+        response.sendRedirect("login.jsp");
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
