@@ -1,14 +1,8 @@
-<%-- 
-    Document   : home
-    Created on : Jan 31, 2025, 2:14:32 AM
-    Author     : chanu
---%>
 <%@page import="app.classes.Products"%>
 <%@page import="app.classes.User"%>
 <%@page import="app.classes.DbConnector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%!User user = new User();Products products=new Products();%>
-
 
 <%
     if (session.getAttribute("user_id") != null) {
@@ -16,10 +10,9 @@
         user.setId(user_id);
         user = user.getUserById(DbConnector.getConnection());
     }else{
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("login_signup/login.jsp");
     }
 %>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
