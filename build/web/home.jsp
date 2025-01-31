@@ -3,11 +3,11 @@
     Created on : Jan 31, 2025, 2:14:32 AM
     Author     : chanu
 --%>
-
+<%@page import="app.classes.Products"%>
 <%@page import="app.classes.User"%>
 <%@page import="app.classes.DbConnector"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%!User user = new User();%>
+<%!User user = new User();Products products=new Products();%>
 
 
 <%
