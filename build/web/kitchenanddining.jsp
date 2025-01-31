@@ -75,7 +75,7 @@
 
             
             <div class="container mx-auto p-6">
-                <h1 class="text-3xl font-bold text-center mb-8">Home & Living Shelves</h1>
+                <h1 class="text-3xl font-bold text-center mb-8">Kitchen and Dining Shelves</h1>
 
                 <!-- Product Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -84,7 +84,7 @@
                         try {
                             con = DbConnector.getConnection();
                             Products productsObj = new Products();
-                            List<Products> categoryProducts = productsObj.getProductsByCategory(con, "Home and Living Shelves");
+                            List<Products> categoryProducts = productsObj.getProductsByCategory(con, "kitchen and dining Shelves");
 
                             if(categoryProducts.isEmpty()) {
                                 %>
@@ -158,7 +158,7 @@
             </script>
         </header>
 
-        <h1><center>Kitchen & Dining</center></h1>
+       
 
         <!-- Footer -->
         <jsp:include page="footer.jsp"/>
