@@ -261,4 +261,31 @@ public List<Products> getRelatedProducts(Connection con, String category, int cu
     }
     return relatedProducts;
 }
+
+
+public List<Products> getProductsByCategory(Connection con, String category) {
+    List<Products> categoryProducts = new ArrayList<>();
+    String query = "SELECT * FROM Products WHERE category = ?";
+    
+    try (PreparedStatement pstmt = con.prepareStatement(query)) {
+        pstmt.setString(1, category);
+        ResultSet rs = pstmt.executeQuery();
+        
+        while(rs.next()) {
+            Products product = new Products(
+                rs.getInt("product_id"),
+                rs.getString("category"),
+                rs.getString("image_url"),
+                rs.getString("name"),
+                rs.getDouble("price"),
+                rs.getInt("quantity"),
+                rs.getString("description")
+            );
+            categoryProducts.add(product);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Products.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return categoryProducts;
+}
 }
