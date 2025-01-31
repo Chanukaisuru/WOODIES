@@ -3,7 +3,41 @@
     Created on : Jan 31, 2025, 12:19:30 PM
     Author     : chanu
 --%>
-
+<%@page import="java.util.List"%>
+<%@page import="app.classes.DbConnector"%>
+<%@page import="app.classes.Products"%>
+<%@page import="java.sql.Connection"%>
+<%
+    // Get the product ID from the URL
+    String productId = request.getParameter("id");
+    Products product = null;
+    Connection con = null;
+    
+    if(productId != null) {
+        try {
+            con = DbConnector.getConnection();
+            // Add a new method to Products class to get a single product
+            Products productObj = new Products();
+            List<Products> allProducts = productObj.getAllProducts(con);
+            for(Products p : allProducts) {
+                if(p.getProduct_id() == Integer.parseInt(productId)) {
+                    product = p;
+                    break;
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(con != null) {
+                try {
+                    con.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -105,24 +139,27 @@
 
         <main class="container mx-auto p-6">
             <div class="flex flex-col md:flex-row bg-white shadow-lg rounded-lg p-6">
-                <img src="resources/images/slider_container/card2.jpg" alt="Product Image" class="w-[300px] h-[300px] rounded-lg">
+                <img src="<%=product != null ? product.getImage_url() : "resources/images/placeholder.jpg"%>" 
+                     alt="Product Image" class="w-[300px] h-[300px] rounded-lg">
                 <div class="md:ml-6 mt-6 md:mt-0 w-full md:w-1/2">
-                    <h2 class="text-3xl font-bold text-gray-800">Wooden Shelf</h2>
-                    <p class="text-gray-600 mt-4">A beautiful handcrafted wooden shelf that adds style and utility to any room. Perfect for displaying your favorite decor items or storing books.</p>
-                    <p class="text-2xl font-semibold text-yellow-500 mt-4">$120.00</p>
-                    <p class="text-gray-600 mt-2">Stock: 25</p>
-                    <form action="AddToCartServlet" method="post" class="mt-6 inline-block mr-4">
-                        <input type="hidden" name="productId" value="1">
-                        <button type="submit" class="bg-white text-black border-2 border-gray-600 rounded-3xl px-6 py-2 hover:bg-transparent hover:border-gray-400 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300">
-                            Add to Cart
-                        </button>
-                    </form>
-                    <form action="BuyNowServlet" method="post" class="mt-6 inline-block">
-                        <input type="hidden" name="productId" value="1">
-                        <button type="submit" class="bg-white text-black border-2 border-gray-600 rounded-3xl px-6 py-2 hover:bg-transparent hover:border-gray-400 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300">
-                            Buy Now
-                        </button>
-                    </form>
+                    <h2 class="text-3xl font-bold text-gray-800"><%=product != null ? product.getName() : "Product Not Found"%></h2>
+                    <p class="text-gray-600 mt-4"><%=product != null ? product.getDescription() : "No description available"%></p>
+                    <p class="text-2xl font-semibold text-yellow-500 mt-4">Rs. <%=product != null ? String.format("%.2f", product.getPrice()) : "0.00"%></p>
+                    <p class="text-gray-600 mt-2">Stock: <%=product != null ? product.getQuantity() : "0"%></p>
+                    <% if(product != null) { %>
+                        <form action="AddToCartServlet" method="post" class="mt-6 inline-block mr-4">
+                            <input type="hidden" name="productId" value="<%=product.getProduct_id()%>">
+                            <button type="submit" class="bg-white text-black border-2 border-gray-600 rounded-3xl px-6 py-2 hover:bg-transparent hover:border-gray-400 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300">
+                                Add to Cart
+                            </button>
+                        </form>
+                        <form action="BuyNowServlet" method="post" class="mt-6 inline-block">
+                            <input type="hidden" name="productId" value="<%=product.getProduct_id()%>">
+                            <button type="submit" class="bg-white text-black border-2 border-gray-600 rounded-3xl px-6 py-2 hover:bg-transparent hover:border-gray-400 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300">
+                                Buy Now
+                            </button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
             <div class="flex flex-col">
