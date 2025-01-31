@@ -125,7 +125,7 @@
                     for(Products p : productList){
                 %>
                     <!-- Product Card -->
-                    <div class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer card-zoom">
+                    <a href="product.jsp?id=<%=p.getProduct_id()%>" class="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer card-zoom">
                         <div class="relative">
                             <img src="<%=p.getImage_url()%>" alt="<%=p.getName()%>" class="w-full h-48 object-cover"/>
                         </div>
@@ -134,7 +134,7 @@
                             <p class="mt-1 text-xs text-gray-500"><%=p.getCategory()%></p>
                             <p class="mt-1 text-sm font-medium text-gray-900">Rs. <%=p.getPrice()%></p>
                         </div>
-                    </div>
+                    </a>
                 <% 
                     } 
                 } catch (Exception e) {
