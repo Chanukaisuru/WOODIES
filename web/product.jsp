@@ -195,61 +195,41 @@
 
 
 
+            
             <!-- Container -->
             <div class="container mx-auto mb-6 mt-12 px-6 py-10">
-                <h2 class="text-3xl font-bold text-gray-800  mb-10">Related Products</h2>
-
+                <h2 class="text-3xl font-bold text-gray-800 mb-10">Related Products</h2>
 
                 <!-- Product Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <!-- Card 1 -->
-                    <a href="productDetails.jsp?id=1" class="block bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl duration-300">
-                        <div class="relative">
-                            <img src="resources/images/slider_container/card3.jpg" alt="Product Image" class="w-full h-56 object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Syltherine</h3>
-                            <p class="text-gray-600 text-sm">Stylish cafe chair</p>
-                            <p class="text-lg font-bold text-yellow-500">Rs 2.500.000</p>
-                        </div>
-                    </a>
-
-                    <!-- Card 2 -->
-                    <a href="productDetails.jsp?id=2" class="block bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl duration-300">
-                        <div class="relative">
-                            <img src="resources/images/slider_container/card4.jpg" alt="Product Image" class="w-full h-56 object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Leviosa</h3>
-                            <p class="text-gray-600 text-sm">Stylish cafe chair</p>
-                            <p class="text-lg font-bold text-yellow-500">Rs 2.500.000</p>
-                        </div>
-                    </a>
-
-                    <!-- Card 3 -->
-                    <a href="productDetails.jsp?id=3" class="block bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl duration-300">
-                        <div class="relative">
-                            <img src="resources/images/slider_container/card1.jpg" alt="Product Image" class="w-full h-56 object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Lolito</h3>
-                            <p class="text-gray-600 text-sm">Luxury big sofa</p>
-                            <p class="text-lg font-bold text-yellow-500">Rs 7.000.000</p>
-                        </div>
-                    </a>
-
-                    <!-- Card 4 -->
-                    <a href="productDetails.jsp?id=4" class="block bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl duration-300">
-                        <div class="relative">
-                            <img src="resources/images/slider_container/card2.jpg" alt="Product Image" class="w-full h-56 object-cover">
-                        </div>
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Respira</h3>
-                            <p class="text-gray-600 text-sm">Outdoor bar table and stool</p>
-                            <p class="text-lg font-bold text-yellow-500">Rs 500.000</p>
-                        </div>
-                    </a>
+                    <%
+                        if(product != null) {
+                            List<Products> relatedProducts = new Products().getRelatedProducts(DbConnector.getConnection(), product.getCategory(), product.getProduct_id());
+                            for(Products relatedProduct : relatedProducts) {
+                    %>
+                        <a href="product.jsp?id=<%=relatedProduct.getProduct_id()%>" 
+                           class="block bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 hover:shadow-2xl duration-300">
+                            <div class="relative">
+                                <img src="<%=relatedProduct.getImage_url()%>" 
+                                     alt="<%=relatedProduct.getName()%>" 
+                                     class="w-full h-56 object-cover">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold text-gray-800"><%=relatedProduct.getName()%></h3>
+                                <p class="text-gray-600 text-sm"><%=relatedProduct.getCategory()%></p>
+                                <p class="text-lg font-bold text-yellow-500">Rs. <%=String.format("%.2f", relatedProduct.getPrice())%></p>
+                            </div>
+                        </a>
+                    <%
+                            }
+                        } else {
+                    %>
+                        <p class="col-span-4 text-center text-gray-500">No related products found</p>
+                    <%
+                        }
+                    %>
                 </div>
+            </div>
         </main>
 
         <!-- Footer -->
